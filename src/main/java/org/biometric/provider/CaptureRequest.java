@@ -47,16 +47,16 @@ public class CaptureRequest extends HttpServlet {
 		CaptureRequestDto captureRequestDto = (CaptureRequestDto)(oB.readValue(sT.getBytes(), CaptureRequestDto.class));
 		CaptureRequestDeviceDetailDto bio = captureRequestDto.getMosipBioRequest().get(0);
 		String result="";
-		if(bio.getType().equals("FIR")) {
+		if(bio.getType().equalsIgnoreCase("FIR")) {
 			if(bio.getDeviceId().equals("1") && bio.getDeviceSubId().equals("1"))
 				result  = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") +"\\files\\MockMDS\\leftFingerPrintCapture.txt")));
 			else if(bio.getDeviceId().equals("1") && bio.getDeviceSubId().equals("2"))
 				result  = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") +"\\files\\MockMDS\\rightFingerPrintCapture.txt")));
 			else if(bio.getDeviceId().equals("1") && bio.getDeviceSubId().equals("3"))
 				result  = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") +"\\files\\MockMDS\\thumbsFingerPrintCapture.txt")));
-		}else if(bio.getType().equals("IIR")) {
+		}else if(bio.getType().equalsIgnoreCase("IIR")) {
 			result  = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") +"\\files\\MockMDS\\irisCapture.txt")));
-		}else if(bio.getType().equals("Face")) {
+		}else if(bio.getType().equalsIgnoreCase("Face")) {
 			result  = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") +"\\files\\MockMDS\\faceCapture.txt")));
 		}
         response.setContentType("text/html");
